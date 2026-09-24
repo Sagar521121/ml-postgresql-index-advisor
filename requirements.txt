@@ -9,3 +9,6 @@ pandas>=2.2,<3
 
 # JSON / data validation
 pydantic>=2.0,<3
+
+# SQL parsing and generation
+sqlglot>=27.0,<28
