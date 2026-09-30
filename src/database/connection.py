@@ -9,11 +9,11 @@ from src.config import (
 )
 
 
-def get_connection():
+def get_connection(dbname=None):
     return psycopg.connect(
         host=DB_HOST,
         port=DB_PORT,
-        dbname=DB_NAME,
+        dbname=dbname or DB_NAME,
         user=DB_USER,
         password=DB_PASSWORD,
     )

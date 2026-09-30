@@ -1,8 +1,17 @@
+from typing import Dict, List, Optional, Set, Tuple
+from src.index_advisor.existing_indexes import (
+    get_existing_indexes,
+    is_candidate_covered,
+)
 import sqlglot
 from sqlglot import exp
 
 
-def generate_candidates(query: str):
+def generate_candidates(
+    query: str,
+    dbname: str = "job_imdb",
+    existing_indexes: Optional[Dict[str, Set[Tuple[str, ...]]]] = None,
+) -> List[Dict]:
     """
     Generate single-column B-tree index candidates
     from WHERE and JOIN conditions.
@@ -71,14 +80,27 @@ def generate_candidates(query: str):
             for column in on_condition.find_all(exp.Column):
                 add_candidate(column)
 
-    # -------------------------------------------------
-    # Remove duplicates
-    # -------------------------------------------------
-
+       # Remove duplicates
     unique_candidates = []
 
     for candidate in candidates:
         if candidate not in unique_candidates:
             unique_candidates.append(candidate)
 
-    return unique_candidates
+    # Remove candidates that already exist as indexes or are covered by existing indexes
+    if existing_indexes is None:
+        existing_indexes = get_existing_indexes(dbname=dbname)
+
+    filtered_candidates = []
+
+    for candidate in unique_candidates:
+
+        table = candidate["table"]
+        columns = tuple(candidate["columns"])
+
+        if is_candidate_covered(table, columns, existing_indexes):
+            continue
+
+        filtered_candidates.append(candidate)
+
+    return filtered_candidates

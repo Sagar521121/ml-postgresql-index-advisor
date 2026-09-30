@@ -2,46 +2,94 @@ from src.index_advisor.candidate_generator import generate_candidates
 from src.index_advisor.hypopg_evaluator import evaluate_candidate
 
 
+BENCHMARK_QUERIES = {
+    "Q1_customer_lookup": """
+        SELECT *
+        FROM orders
+        WHERE customer_id = 5000;
+    """,
+
+    "Q2_high_amount": """
+        SELECT *
+        FROM orders
+        WHERE amount > 9990;
+    """,
+
+    "Q3_cancelled_orders": """
+        SELECT *
+        FROM orders
+        WHERE status = 'cancelled';
+    """,
+
+    "Q4_date_lookup": """
+        SELECT *
+        FROM orders
+        WHERE order_date = DATE '2025-06-15';
+    """,
+
+    "Q5_customer_city": """
+        SELECT *
+        FROM customers
+        WHERE city = 'Delhi';
+    """,
+
+    "Q6_join_city": """
+        SELECT
+            c.customer_id,
+            c.city,
+            o.amount
+        FROM customers c
+        JOIN orders o
+            ON c.customer_id = o.customer_id
+        WHERE c.city = 'Delhi';
+    """
+}
+
+
 def main():
 
-    query = """
-    SELECT
-        c.customer_id,
-        c.city,
-        o.amount
-    FROM customers c
-    JOIN orders o
-        ON c.customer_id = o.customer_id
-    WHERE c.city = 'Delhi';
-    """
+    for query_name, query in BENCHMARK_QUERIES.items():
 
-    # Step 1: Generate candidates
-    candidates = generate_candidates(query)
+        print("\n" + "=" * 70)
+        print(query_name)
+        print("=" * 70)
 
-    print("Generated Candidates")
-    print("--------------------")
+        candidates = generate_candidates(query)
 
-    for candidate in candidates:
-        print(candidate)
+        if not candidates:
+            print("No candidates generated.")
+            continue
 
-    # Step 2: Evaluate every candidate with HypoPG
-    print("\nHypoPG Evaluation")
-    print("-----------------")
+        for candidate in candidates:
 
-    for candidate in candidates:
+            result = evaluate_candidate(
+                query,
+                candidate
+            )
 
-        result = evaluate_candidate(
-            query,
-            candidate
-        )
+            candidate_name = (
+                f"{candidate['table']}"
+                f"({', '.join(candidate['columns'])})"
+            )
 
-        print(
-            f"{candidate['table']}({', '.join(candidate['columns'])})"
-            f" → "
-            f"{result['root_node_type']}"
-            f" | cost={result['total_cost']}"
-            f" | rows={result['plan_rows']}"
-        )
+            print(f"\nCandidate: {candidate_name}")
+            print(f"Baseline Cost: {result['baseline_cost']}")
+            print(
+                f"Hypothetical Cost: "
+                f"{result['hypothetical_cost']}"
+            )
+            print(
+                f"Cost Reduction: "
+                f"{result['cost_reduction']:.2f}"
+            )
+            print(
+                f"Cost Reduction %: "
+                f"{result['cost_reduction_percentage']:.2f}%"
+            )
+            print(
+                f"Hypothetical Root Node: "
+                f"{result['root_node_type']}"
+            )
 
 
 if __name__ == "__main__":
