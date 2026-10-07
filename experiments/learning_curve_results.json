@@ -1,0 +1,232 @@
+{
+  "metadata": {
+    "timestamp": "2026-10-07T16:53:13.596007",
+    "experiment": "Diagnostic Learning-Curve Analysis",
+    "model_configuration": "Stage-2 XGBoost (max_depth=2, min_child_weight=2, lr=0.1, n_est=200, subsample=1.0, colsample=0.6, reg_lambda=1.0, seed=42)",
+    "feature_representation": "49 clean non-constant features",
+    "dev_total_rows": 371,
+    "dev_total_queries": 78,
+    "dev_total_units": 16,
+    "holdout_touched": false,
+    "holdout_rows": 228
+  },
+  "canonical_structural_units": [
+    "Singleton_1",
+    "Singleton_2",
+    "Singleton_3",
+    "Singleton_4",
+    "Singleton_6",
+    "Singleton_7",
+    "Singleton_10",
+    "C70_5",
+    "Singleton_14",
+    "Singleton_15",
+    "C70_6",
+    "Singleton_18",
+    "C70_7",
+    "C70_3",
+    "C70_4",
+    "Singleton_32"
+  ],
+  "primary_fixed_validation_protocol": {
+    "description": "Nested prefix training sizes (4, 8, 12 units) evaluated on a fixed held-out set of 4 canonical development units (C70_7, C70_3, C70_4, Singleton_32). 16-unit point evaluates in-sample ceiling on same validation set.",
+    "fixed_validation_units": [
+      "C70_7",
+      "C70_3",
+      "C70_4",
+      "Singleton_32"
+    ],
+    "fixed_validation_queries": 27,
+    "fixed_validation_rows": 184,
+    "hypopg_baseline_metrics": {
+      "macro_ndcg3": 0.7760426559514256,
+      "top1_regret": 0.006041675226094702,
+      "spearman": 0.11752380952380954
+    },
+    "learning_curve_points": [
+      {
+        "training_units_count": 4,
+        "training_units": [
+          "Singleton_1",
+          "Singleton_2",
+          "Singleton_3",
+          "Singleton_4"
+        ],
+        "training_queries_count": 14,
+        "training_rows_count": 41,
+        "validation_units_count": 4,
+        "validation_units": [
+          "C70_7",
+          "C70_3",
+          "C70_4",
+          "Singleton_32"
+        ],
+        "validation_queries_count": 27,
+        "validation_rows_count": 184,
+        "eval_type": "out_of_sample",
+        "macro_ndcg3": 0.7760426559514256,
+        "unit_macro_ndcg3": 0.8134465306023894,
+        "top1_regret": 0.006041675226094702,
+        "spearman": 0.11752380952380954,
+        "rmse": 0.3030316638008254
+      },
+      {
+        "training_units_count": 8,
+        "training_units": [
+          "Singleton_1",
+          "Singleton_2",
+          "Singleton_3",
+          "Singleton_4",
+          "Singleton_6",
+          "Singleton_7",
+          "Singleton_10",
+          "C70_5"
+        ],
+        "training_queries_count": 31,
+        "training_rows_count": 115,
+        "validation_units_count": 4,
+        "validation_units": [
+          "C70_7",
+          "C70_3",
+          "C70_4",
+          "Singleton_32"
+        ],
+        "validation_queries_count": 27,
+        "validation_rows_count": 184,
+        "eval_type": "out_of_sample",
+        "macro_ndcg3": 0.7645047023697751,
+        "unit_macro_ndcg3": 0.7988586851409523,
+        "top1_regret": 0.006744558980087816,
+        "spearman": 0.14975757575757578,
+        "rmse": 0.3219906737499845
+      },
+      {
+        "training_units_count": 12,
+        "training_units": [
+          "Singleton_1",
+          "Singleton_2",
+          "Singleton_3",
+          "Singleton_4",
+          "Singleton_6",
+          "Singleton_7",
+          "Singleton_10",
+          "C70_5",
+          "Singleton_14",
+          "Singleton_15",
+          "C70_6",
+          "Singleton_18"
+        ],
+        "training_queries_count": 51,
+        "training_rows_count": 187,
+        "validation_units_count": 4,
+        "validation_units": [
+          "C70_7",
+          "C70_3",
+          "C70_4",
+          "Singleton_32"
+        ],
+        "validation_queries_count": 27,
+        "validation_rows_count": 184,
+        "eval_type": "out_of_sample",
+        "macro_ndcg3": 0.5933873203257563,
+        "unit_macro_ndcg3": 0.6734701770424506,
+        "top1_regret": 0.19854160016496272,
+        "spearman": 0.011930735930735965,
+        "rmse": 0.32197909468900543
+      },
+      {
+        "training_units_count": 16,
+        "training_units": [
+          "Singleton_1",
+          "Singleton_2",
+          "Singleton_3",
+          "Singleton_4",
+          "Singleton_6",
+          "Singleton_7",
+          "Singleton_10",
+          "C70_5",
+          "Singleton_14",
+          "Singleton_15",
+          "C70_6",
+          "Singleton_18",
+          "C70_7",
+          "C70_3",
+          "C70_4",
+          "Singleton_32"
+        ],
+        "training_queries_count": 78,
+        "training_rows_count": 371,
+        "validation_units_count": 4,
+        "validation_units": [
+          "C70_7",
+          "C70_3",
+          "C70_4",
+          "Singleton_32"
+        ],
+        "validation_queries_count": 27,
+        "validation_rows_count": 184,
+        "eval_type": "in_sample_ceiling",
+        "macro_ndcg3": 0.7760426559514256,
+        "unit_macro_ndcg3": 0.8134465306023894,
+        "top1_regret": 0.006041675226094702,
+        "spearman": 0.11752380952380954,
+        "rmse": 0.12375685324566547
+      }
+    ]
+  },
+  "complementary_4fold_cv_protocol": {
+    "description": "4-Fold Grouped Cross-Validation over the 16 units (4 folds of 4 units). In each fold, nested prefixes of 4, 8, 12 units are trained and evaluated on the held-out fold, pooling across all 78 dev queries.",
+    "learning_curve_points": [
+      {
+        "training_units_count": 4,
+        "avg_training_queries_count": 14.75,
+        "avg_training_rows_count": 49.25,
+        "evaluated_queries_count": 78,
+        "evaluated_rows_count": 371,
+        "macro_ndcg3": 0.7057726006803013,
+        "unit_macro_ndcg3": 0.7043120162288699,
+        "top1_regret": 0.3436827481670572,
+        "spearman": -0.07161654135338345,
+        "rmse": 0.6164649774464697
+      },
+      {
+        "training_units_count": 8,
+        "avg_training_queries_count": 33.25,
+        "avg_training_rows_count": 122.25,
+        "evaluated_queries_count": 78,
+        "evaluated_rows_count": 371,
+        "macro_ndcg3": 0.7770295143861572,
+        "unit_macro_ndcg3": 0.7849946819401934,
+        "top1_regret": 0.11368120766536449,
+        "spearman": 0.15123604465709728,
+        "rmse": 0.5560522140738958
+      },
+      {
+        "training_units_count": 12,
+        "avg_training_queries_count": 58.5,
+        "avg_training_rows_count": 278.25,
+        "evaluated_queries_count": 78,
+        "evaluated_rows_count": 371,
+        "macro_ndcg3": 0.7081947554126565,
+        "unit_macro_ndcg3": 0.7380445989833901,
+        "top1_regret": 0.18101308557744522,
+        "spearman": 0.0927403736614263,
+        "rmse": 0.5149312735207502
+      }
+    ],
+    "loou_15unit_reference": {
+      "training_units_count": 15,
+      "protocol": "16-fold Leave-One-Structural-Unit-Out Cross-Validation",
+      "macro_ndcg3": 0.7714,
+      "unit_macro_ndcg3": 0.7719,
+      "top1_regret": 0.1291,
+      "spearman": 0.1267,
+      "rmse": 0.4011
+    }
+  },
+  "verdict": {
+    "curve_shape": "flat_non_monotonic",
+    "evidence_for_diversity": "insufficient / absent",
+    "explanation": "Performance does not monotonically increase with more structural units. On fixed validation, NDCG@3 shifts from 0.7760 (4 units) to 0.7645 (8 units) to 0.5934 (12 units). On 4-fold grouped CV across all 78 queries, NDCG@3 is 0.7058 (4 units), 0.7770 (8 units), 0.7082 (12 units), and 0.7714 (15 units LOOU). There is no rising trend, confirming an information ceiling rather than an structural diversity bottleneck within this planner feature representation."
+  }
+}
